@@ -16,7 +16,7 @@ enum {
 int main(int argc, char **argv)
 {
   const char *hex_upper = "%02X", *hex_lower = "%02x";
-  char c;
+  signed char c;
   char units = 'C';
   HANDLE fd;
   char *serial_port = NULL;
@@ -125,7 +125,11 @@ int main(int argc, char **argv)
         temperature = (9 * temperature) / 5 + 32;
       }
 
-      printf("%s Sensor %c: %.2f\n", timebuf, units, temperature);
+      if (verbose) {
+        printf("%s Sensor %c: %.2f\n", timebuf, units, temperature);
+      } else {
+        printf("%.2f", temperature);
+      }
       break;
 
     case READ_ROM:
